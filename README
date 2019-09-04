@@ -1,3 +1,5 @@
+Starting the server.
+
 1. Download and setup Node js.
 2. Go to /server `npm install express --save`
 3. Enter `npm start`
