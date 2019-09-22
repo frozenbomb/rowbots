@@ -1,19 +1,44 @@
-// server.js
+'use strict';
 
-var express = require('express');
+//Frameworks / misc
+const PORT = 3000;
+const express = require('express');
+const app = express();
 
-var app = express();
 
-var PORT = 3000;
+//Initialize server
+const http = require('http').createServer(app);
 
-app.get('/', function(req, res) {
-    res.status(200).send('Hello world');
+//Open socket
+const io = require('socket.io')(http);
+
+//Establish server path
+const path = require('path');
+
+//Find client files
+const clientDirectory = path.resolve(__dirname + '/../client');
+const aaaa = path.resolve(__dirname + '/../node_modules/socket.io-client/dist/socket.io.js');
+
+app.use('/', express.static(clientDirectory));
+app.use('/', express.static(aaaa));
+
+app.get('/', (req, res) => {
+    res.sendFile(clientDirectory + '/' + 'index.html');
 });
 
-app.get('/hello_from_client', function(req, res) {
-    res.status(200).send('Hello from server');
-});
+io.on('connection', (socket) => {
+    console.log('a user connected');
 
-app.listen(PORT, function() {
-    console.log('Server is running on PORT:',PORT);
-});
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+        io.emit('chat message', msg);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+})
+
+http.listen(PORT, () => {
+    console.log('alskjdklasd');
+})
