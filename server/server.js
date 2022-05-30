@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 var cards = [
     {
-        "text": "attack for 2",
+        "text": "attack for 3",
         "id": "1"
     },
     {
