@@ -5,7 +5,6 @@ const PORT = 3000;
 const express = require('express');
 const app = express();
 
-
 //Initialize server
 const http = require('http').createServer(app);
 
@@ -26,11 +25,29 @@ app.get('/', (req, res) => {
     res.sendFile(clientDirectory + '/' + 'index.html');
 });
 
+var cards = [
+    {
+        "text": "attack for 2",
+        "id": "1"
+    },
+    {
+        "text": "block for 2",
+        "id": "2"
+    }
+]
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 
+    io.emit('game message', cards);
+
     socket.on('chat message', (msg) => {
         console.log('message: ' + msg);
+        io.emit('chat message', msg);
+    });
+
+    socket.on('game message', (msg) => {
+        console.log('got message: ' + msg);
         io.emit('chat message', msg);
     });
 
