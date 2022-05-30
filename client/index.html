@@ -42,7 +42,11 @@
 
       $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
-        socket.emit('game message', $("input[name='card']:checked").val())
+        var clientInput = {
+          "target": "enemy",
+          "cardId":  $("input[name='card']:checked").val()
+        }
+        socket.emit('game message', clientInput)
         return false;
       });
     });

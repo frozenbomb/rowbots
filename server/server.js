@@ -36,25 +36,34 @@ var cards = [
     }
 ]
 
-var gameInfo = {
+var enemyInfo = {
+    "target": "111",
+    "card": "1",
+    "health": 10,
+    "maxHealth": 10
+}
+
+var clientInfo = {
     "clientId": "111",
-    "turn": "1",
+    "health": 50,
+    "maxHealth": 50,
+    "turn": 1,
     "cards": cards
 }
 
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    io.emit('game message', gameInfo);
+    io.emit('game message', clientInfo);
 
     socket.on('log message', (msg) => {
         console.log('message: ' + msg);
         io.emit('log message', msg);
     });
 
-    socket.on('game message', (msg) => {
-        console.log('got message: ' + msg);
-        io.emit('log message', msg);
+    socket.on('game message', (clientInput) => {
+        console.log('got message: ' + clientInput.cardId);
+        io.emit('log message', clientInput.cardId);
     });
 
     socket.on('disconnect', () => {
