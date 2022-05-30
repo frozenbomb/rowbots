@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 var cards = [
     {
-        "text": "attack for 3",
+        "text": "attack for 4",
         "id": "1"
     },
     {
@@ -36,19 +36,25 @@ var cards = [
     }
 ]
 
+var gameInfo = {
+    "clientId": "111",
+    "turn": "1",
+    "cards": cards
+}
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    io.emit('game message', cards);
+    io.emit('game message', gameInfo);
 
-    socket.on('chat message', (msg) => {
+    socket.on('log message', (msg) => {
         console.log('message: ' + msg);
-        io.emit('chat message', msg);
+        io.emit('log message', msg);
     });
 
     socket.on('game message', (msg) => {
         console.log('got message: ' + msg);
-        io.emit('chat message', msg);
+        io.emit('log message', msg);
     });
 
     socket.on('disconnect', () => {
@@ -57,5 +63,5 @@ io.on('connection', (socket) => {
 })
 
 http.listen(PORT, () => {
-    console.log('alskjdklasd');
+    console.log('server started');
 })
