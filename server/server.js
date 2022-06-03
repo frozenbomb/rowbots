@@ -1,4 +1,5 @@
 'use strict';
+const GameState = require('./game-state.js')
 
 //Frameworks / misc
 const PORT = 3000;
@@ -25,36 +26,12 @@ app.get('/', (req, res) => {
     res.sendFile(clientDirectory + '/' + 'index.html');
 });
 
-var cards = [
-    {
-        "text": "attack for 4",
-        "id": "1"
-    },
-    {
-        "text": "block for 2",
-        "id": "2"
-    }
-]
-
-var enemyInfo = {
-    "target": "111",
-    "card": "1",
-    "health": 10,
-    "maxHealth": 10
-}
-
-var clientInfo = {
-    "clientId": "111",
-    "health": 50,
-    "maxHealth": 50,
-    "turn": 1,
-    "cards": cards
-}
-
 io.on('connection', (socket) => {
+    const gameState = new GameState()
     console.log('a user connected');
 
-    io.emit('game message', clientInfo);
+    gameState.startGame()
+    io.emit('game message', gameState.playerTurnInfo())
 
     socket.on('log message', (msg) => {
         console.log('message: ' + msg);
