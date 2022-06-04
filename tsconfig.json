@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "outDir": "./built",
+      "allowJs": true,
+      "target": "es5",
+      "checkJs": true
+    },
+    "include": ["./client/**/*", "./server/**/*"]
+  }

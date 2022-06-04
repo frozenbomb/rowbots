@@ -1,21 +1,22 @@
 'use strict';
-const GameState = require('./game-state.js')
+import { GameState } from './game-state'
 
-//Frameworks / misc
+// Frameworks / misc
 const PORT = 3000;
 const express = require('express');
 const app = express();
 
-//Initialize server
+// Initialize server
 const http = require('http').createServer(app);
 
-//Open socket
+// Open socket
+// @ts-ignore
 const io = require('socket.io')(http);
 
-//Establish server path
+// Establish server path
 const path = require('path');
 
-//Find client files
+// Find client files
 const clientDirectory = path.resolve(__dirname + '/../client');
 const aaaa = path.resolve(__dirname + '/../node_modules/socket.io-client/dist/socket.io.js');
 

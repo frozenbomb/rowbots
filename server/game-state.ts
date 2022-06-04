@@ -1,25 +1,23 @@
-const Actor = require('./actor.js') 
+import { Actor } from './actor'
+import { Card } from './card'
 
-var cards = [
-    {
-        "text": "attack for 4",
-        "id": "1"
-    },
-    {
-        "text": "block for 2",
-        "id": "2"
-    }
-]
+export class GameState {
+    private turn: number
+    private players: Array<Actor>
+    private enemies: Array<Actor>
+    private cards: Array<Card>
 
-class GameState {
     constructor(){
         this.turn = 0
         this.players = []
         this.enemies = []
+        this.cards = []
+        this.cards.push(new Card("attack for 4", 1))
+        this.cards.push(new Card("block for 2", 2))
     }
 
     startGame() {
-        this.players.push(new Actor(cards, "111", 50, 20))
+        this.players.push(new Actor(this.cards, "111", 50, 20))
         this.startEncounter()
         this.startTurn()
     }
@@ -27,7 +25,7 @@ class GameState {
     startEncounter() {
         this.turn = 1
     
-        var enemy = new Actor(cards, "222", 10, 10)
+        var enemy = new Actor(this.cards, "222", 10, 10)
     
         this.enemies.push(enemy)
     }
@@ -37,7 +35,7 @@ class GameState {
             enemy.setTarget("111")
             var chosenCard = Math.floor(Math.random() * enemy.getCardAmount())
             var card = enemy.chooseCard(chosenCard)
-            console.log("Enemy plans to " + card.text)
+            console.log("Enemy plans to " + card.getText())
         })
     }
     
@@ -50,5 +48,3 @@ class GameState {
     }
     
 }
-
-module.exports = GameState

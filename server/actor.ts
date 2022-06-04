@@ -1,4 +1,13 @@
-class Actor {
+import { Card } from "./card"
+
+export class Actor {
+    private id: string
+    private currHealth: number
+    private maxHealth: number
+    private speed: number
+    private cards: Array<Card>
+    private target: string
+
     constructor(cards, id, maxHealth, speed){
         this.id = id
         this.currHealth = maxHealth
@@ -16,7 +25,7 @@ class Actor {
 
     changeHealth(amount) { this.currHealth += amount }
 
-    resetHealth() { this.currHealth = maxHealth }
+    resetHealth() { this.currHealth = this.maxHealth }
 
     setMaxHealth(max) { 
         this.maxHealth = max
@@ -33,5 +42,3 @@ class Actor {
 
     setTarget(target) { this.target = target }
 }
-
-module.exports = Actor

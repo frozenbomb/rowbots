@@ -1,5 +1,5 @@
 sessionStorage.setItem("client-id", "111")
-sessionStorage.setItem('curr-turn', 0)
+sessionStorage.setItem('curr-turn', "0")
 
 function createSendButton() {
     var button = document.createElement("button")
