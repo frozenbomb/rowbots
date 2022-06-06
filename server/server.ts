@@ -1,4 +1,5 @@
 'use strict';
+import { CHANNEL } from '../constants';
 import { GameState } from './game-state'
 
 // Frameworks / misc
@@ -34,14 +35,14 @@ io.on('connection', (socket) => {
     gameState.startGame()
     io.emit('game message', gameState.playerTurnInfo())
 
-    socket.on('log message', (msg) => {
+    socket.on(CHANNEL.LOG, (msg) => {
         console.log('message: ' + msg);
-        io.emit('log message', msg);
+        io.emit(CHANNEL.LOG, msg);
     });
 
-    socket.on('game message', (clientInput) => {
+    socket.on(CHANNEL.GAME, (clientInput) => {
         console.log('got message: ' + clientInput.cardId);
-        io.emit('log message', clientInput.cardId);
+        io.emit(CHANNEL.LOG, clientInput.cardId);
     });
 
     socket.on('disconnect', () => {

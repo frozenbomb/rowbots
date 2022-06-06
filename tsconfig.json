@@ -5,5 +5,5 @@
       "target": "es5",
       "checkJs": true
     },
-    "include": ["./client/**/*", "./server/**/*"]
+    "include": ["./client/**/*", "./server/**/*", "constants.ts"]
   }

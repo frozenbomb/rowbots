@@ -1,19 +1,21 @@
 import { Actor } from './actor'
 import { Card } from './card'
+import { CardAction } from './card-action'
 
 export class GameState {
     private turn: number
     private players: Array<Actor>
     private enemies: Array<Actor>
     private cards: Array<Card>
+    private cardAction = new CardAction(4)
 
     constructor(){
         this.turn = 0
         this.players = []
         this.enemies = []
         this.cards = []
-        this.cards.push(new Card("attack for 4", 1))
-        this.cards.push(new Card("block for 2", 2))
+        this.cards.push(new Card("attack for 4", 1, [this.cardAction]))
+        this.cards.push(new Card("block for 2", 2, [this.cardAction]))
     }
 
     startGame() {
