@@ -18,6 +18,14 @@ export class GameState {
         this.cards.push(new Card("block for 2", 2, [this.cardAction]))
     }
 
+    getPlayers() {
+        return this.players
+    }
+
+    getEnemies() {
+        return this.enemies
+    }
+
     startGame() {
         this.players.push(new Actor(this.cards, "111", 50, 20))
         this.startEncounter()
@@ -40,12 +48,18 @@ export class GameState {
             console.log("Enemy plans to " + card.getText())
         })
     }
+
+    endTurn() {
+        this.players.forEach((player) => {
+            player.useChosenCard()
+        })
+    }
     
-    playerTurnInfo = function() {
+    playerTurnInfo() {
         return {
             "clientId": this.players[0].getId(),
             "turn": this.turn,
-            "cards": this.players[0].cards
+            "cards": this.players[0].getCards()
         }
     }
     

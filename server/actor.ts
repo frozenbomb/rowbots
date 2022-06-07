@@ -7,6 +7,7 @@ export class Actor {
     private speed: number
     private cards: Array<Card>
     private target: string
+    private chosenCard: Card
 
     constructor(cards, id, maxHealth, speed){
         this.id = id
@@ -41,4 +42,10 @@ export class Actor {
     getCardAmount() { return this.cards.length }
 
     setTarget(target) { this.target = target }
+
+    setChosenCard(index: number) { this.chosenCard = this.cards[index] }
+
+    useChosenCard() { 
+        if (this.chosenCard) this.chosenCard.performCardActions(this.target)
+    }
 }

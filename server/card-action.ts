@@ -10,6 +10,7 @@ export class CardAction {
     performAction(targets: Array<Actor>) {
         targets.forEach((actor) => {
             actor.changeHealth(this.damage)
+            console.log("actor took " + this.damage)
         })
     }
 }

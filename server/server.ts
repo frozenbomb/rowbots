@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
     socket.on(CHANNEL.GAME, (clientInput) => {
         console.log('got message: ' + clientInput.cardId);
         io.emit(CHANNEL.LOG, clientInput.cardId);
+        var players = gameState.getPlayers()
+        var enemies = gameState.getEnemies()
+        players[0].setChosenCard(clientInput.cardId)
+        players[0].setTarget([enemies[0]])
+        gameState.endTurn()
     });
 
     socket.on('disconnect', () => {

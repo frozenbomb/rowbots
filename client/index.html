@@ -19,11 +19,11 @@
     $(function () {
       var socket = io()
 
-      socket.on(CHANNEL.LOG, function(msg){
+      socket.on("log message", function(msg){
         $('#messages').append($('<li>').text(msg))
       });
 
-      socket.on(CHANNEL.GAME, function(gameInfo){
+      socket.on("game message", function(gameInfo){
         if (gameInfo.clientId === sessionStorage.getItem("client-id")) {
           if (gameInfo.turn > sessionStorage.getItem("curr-turn")) {
             var el = $("#user-input")
@@ -43,10 +43,11 @@
       $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
         var clientInput = {
+          "id": "111",
           "target": "enemy",
           "cardId":  $("input[name='card']:checked").val()
         }
-        socket.emit(CHANNEL.GAME, clientInput)
+        socket.emit("game message", clientInput)
         return false;
       });
     });
