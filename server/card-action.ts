@@ -9,8 +9,9 @@ export class CardAction {
 
     performAction(targets: Array<Actor>) {
         targets.forEach((actor) => {
-            actor.changeHealth(this.damage)
-            console.log("actor took " + this.damage)
+            actor.changeHealth(-this.damage)
+            console.log(actor.getName() + " took " + this.damage)
+            console.log(actor.getName() + " has " + actor.getHealth() + "/" + actor.getMaxHealth())
         })
     }
 }

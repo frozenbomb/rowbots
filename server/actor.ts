@@ -2,50 +2,51 @@ import { Card } from "./card"
 
 export class Actor {
     private id: string
+    private name: string
     private currHealth: number
     private maxHealth: number
     private speed: number
     private cards: Array<Card>
-    private target: string
-    private chosenCard: Card
+    private isPlayer: boolean
 
-    constructor(cards, id, maxHealth, speed){
+    constructor(cards: Array<Card>, id: string, name: string, maxHealth: number, speed: number, isPlayer){
         this.id = id
+        this.name = name
         this.currHealth = maxHealth
         this.maxHealth = maxHealth
         this.speed = speed
         this.cards = cards
-        this.target = ""
+        this.isPlayer = isPlayer
     }
+
+    getIsPlayer() { return this.isPlayer }
 
     getId() { return this.id }
 
-    setCards(cards) { this.cards = cards }
+    getName() { return this.name }
+
+    setCards(cards: Array<Card>) { this.cards = cards }
 
     getCards() { return this.cards }
 
-    changeHealth(amount) { this.currHealth += amount }
+    getHealth() { return this.currHealth }
+
+    changeHealth(amount: number) { this.currHealth += amount }
 
     resetHealth() { this.currHealth = this.maxHealth }
 
-    setMaxHealth(max) { 
+    setMaxHealth(max: number) { 
         this.maxHealth = max
         this.currHealth = this.maxHealth 
     }
 
-    setSpeed(speed) { this.speed = speed }
+    getMaxHealth() { return this.maxHealth }
+
+    setSpeed(speed: number) { this.speed = speed }
 
     getSpeed() { return this.speed }
 
-    chooseCard(num) { return this.cards[num] }
+    chooseCard(num: number) { return this.cards[num] }
 
     getCardAmount() { return this.cards.length }
-
-    setTarget(target) { this.target = target }
-
-    setChosenCard(index: number) { this.chosenCard = this.cards[index] }
-
-    useChosenCard() { 
-        if (this.chosenCard) this.chosenCard.performCardActions(this.target)
-    }
 }

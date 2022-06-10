@@ -1,3 +1,4 @@
+import { Actor } from "./actor"
 import { CardAction } from "./card-action"
 
 export class Card {
@@ -13,9 +14,9 @@ export class Card {
 
     getText() { return this.text }
 
-    performCardActions(target) { 
+    performCardActions(targets: Array<Actor>) { 
         this.cardActions.forEach((action) => {
-            action.performAction(target)
+            action.performAction(targets)
         })
     }
 }

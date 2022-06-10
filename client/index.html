@@ -44,7 +44,7 @@
         e.preventDefault(); // prevents page reloading
         var clientInput = {
           "id": "111",
-          "target": "enemy",
+          "targetId": "222",
           "cardId":  $("input[name='card']:checked").val()
         }
         socket.emit("game message", clientInput)
