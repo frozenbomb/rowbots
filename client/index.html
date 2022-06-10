@@ -24,7 +24,7 @@
       });
 
       socket.on("game message", function(gameInfo){
-        if (gameInfo.clientId === sessionStorage.getItem("client-id")) {
+        if (gameInfo.clientId == sessionStorage.getItem("client-id")) {
           if (gameInfo.turn > sessionStorage.getItem("curr-turn")) {
             var el = $("#user-input")
             el.empty()
@@ -43,9 +43,9 @@
       $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
         var clientInput = {
-          "id": "111",
-          "targetId": "222",
-          "cardId":  $("input[name='card']:checked").val()
+          "id": 111,
+          "targetId": 222,
+          "cardId":  $("input[name='card']:checked").val() - 1
         }
         socket.emit("game message", clientInput)
         return false;

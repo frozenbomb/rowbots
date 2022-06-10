@@ -4,7 +4,7 @@ export const EChannel = {
 }
 
 export type TClientInput = {
-    id: string,
-    targetId: string
+    id: number,
+    targetId: number
     cardId: number
 }

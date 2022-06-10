@@ -1,12 +1,12 @@
 import { Actor } from "./actor"
-import { CardAction } from "./card-action"
+import { BlockAction, DamageAction } from "./card-action"
 
 export class Card {
     private text: string
-    private id: string
-    private cardActions: Array<CardAction>
+    private id: number
+    private cardActions: Array<DamageAction | BlockAction>
 
-    constructor(text, id, cardActions: Array<CardAction>) {
+    constructor(text: string, id: number, cardActions: Array<DamageAction | BlockAction>) {
         this.text = text
         this.id = id
         this.cardActions = cardActions

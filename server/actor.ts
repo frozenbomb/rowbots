@@ -1,15 +1,16 @@
 import { Card } from "./card"
 
 export class Actor {
-    private id: string
+    private id: number
     private name: string
     private currHealth: number
     private maxHealth: number
     private speed: number
     private cards: Array<Card>
     private isPlayer: boolean
+    private block: number
 
-    constructor(cards: Array<Card>, id: string, name: string, maxHealth: number, speed: number, isPlayer){
+    constructor(cards: Array<Card>, id: number, name: string, maxHealth: number, speed: number, isPlayer){
         this.id = id
         this.name = name
         this.currHealth = maxHealth
@@ -17,6 +18,7 @@ export class Actor {
         this.speed = speed
         this.cards = cards
         this.isPlayer = isPlayer
+        this.block = 0
     }
 
     getIsPlayer() { return this.isPlayer }
@@ -31,7 +33,23 @@ export class Actor {
 
     getHealth() { return this.currHealth }
 
-    changeHealth(amount: number) { this.currHealth += amount }
+    addBlock(block: number) { this.block += block }
+
+    resetBlock() { this.block = 0 }
+
+    getBlock() { return this.block }
+
+    performAttack(amount: number) {
+        if (this.block === 0) {
+            this.currHealth -= amount
+        }
+        else if (this.block >= amount) {
+            this.block -= amount
+        } else {
+            this.currHealth = this.currHealth - (this.block - amount)
+            this.block = 0
+        }
+    }
 
     resetHealth() { this.currHealth = this.maxHealth }
 

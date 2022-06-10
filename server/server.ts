@@ -28,54 +28,35 @@ app.get('/', (req, res) => {
     res.sendFile(clientDirectory + '/' + 'index.html');
 });
 
-// io.on('connection', (socket) => {
-//     const gameState = new GameState()
-//     console.log('a user connected');
+io.on('connection', (socket) => {
+    const gameState = new GameState()
+    console.log('a user connected');
 
-//     gameState.startGame()
-//     io.emit('game message', gameState.playerTurnInfo())
+    gameState.startGame()
+    io.emit('game message', gameState.playerTurnInfo(111))
 
-//     socket.on(EChannel.LOG, (msg) => {
-//         console.log('message: ' + msg);
-//         io.emit(EChannel.LOG, msg);
-//     });
+    socket.on(EChannel.LOG, (msg) => {
+        console.log('message: ' + msg);
+        io.emit(EChannel.LOG, msg);
+    });
 
-//     // socket.on(EChannel.GAME, (clientInput: TClientInput) => {
-//         // console.log('got message: ' + clientInput.cardId);
-//         // io.emit(EChannel.LOG, clientInput.cardId);
+    socket.on(EChannel.GAME, (clientInput: TClientInput) => {
+        console.log('got message: ' + clientInput.cardId);
+        io.emit(EChannel.LOG, clientInput.cardId);
 
-//         // var player = gameState.getActorById("111")
-//         // var target = gameState.getActorById("222")
-//         // var chosenCard = player.chooseCard(clientInput.cardId)
-//         // gameState.addTurnAction(chosenCard, player, target)
+        var player = gameState.getActorById(clientInput.id)
+        var target = gameState.getActorById(clientInput.targetId)
+        var chosenCard = player.chooseCard(0)
+        gameState.addTurnAction(chosenCard, player, target)
 
-//         // gameState.endTurn()
-//     // });
+        gameState.endTurn()
+    });
 
-//     socket.on('disconnect', () => {
-//         console.log('user disconnected');
-//     });
-// })
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+})
 
 http.listen(PORT, () => {
-    const gameState = new GameState()
-    gameState.startGame()
-
     console.log('server started');
-
-    const clientInput: TClientInput = {
-        id: "111",
-        targetId: "222",
-        cardId: 0,
-    }
-
-    var player = gameState.getActorById(clientInput.id)
-    var target = gameState.getActorById(clientInput.targetId)
-
-    while(target.getHealth() > 0) {
-        var chosenCard = player.chooseCard(clientInput.cardId)
-        gameState.addTurnAction(chosenCard, player, target)
-        gameState.endTurn()
-    }
-    console.log("defeated " + target.getName())
 })
