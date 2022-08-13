@@ -2,21 +2,10 @@ import { Actor } from "./actor"
 import { BlockAction, DamageAction } from "./card-action"
 
 export class Card {
-    private text: string
-    private id: number
-    private cardActions: Array<DamageAction | BlockAction>
 
-    constructor(text: string, id: number, cardActions: Array<DamageAction | BlockAction>) {
-        this.text = text
-        this.id = id
-        this.cardActions = cardActions
-    }
+    constructor(private text: string, private id: number, private cardActions: Array<DamageAction | BlockAction>) {}
 
-    getText() { return this.text }
+    getDescriptionText() { return this.text }
 
-    performCardActions(targets: Array<Actor>) { 
-        this.cardActions.forEach((action) => {
-            action.performAction(targets)
-        })
-    }
+    getCardActions() { return this.cardActions }
 }

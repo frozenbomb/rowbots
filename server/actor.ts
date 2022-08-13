@@ -1,23 +1,12 @@
 import { Card } from "./card"
 
 export class Actor {
-    private id: number
-    private name: string
     private currHealth: number
-    private maxHealth: number
-    private speed: number
-    private cards: Array<Card>
-    private isPlayer: boolean
     private block: number
 
-    constructor(cards: Array<Card>, id: number, name: string, maxHealth: number, speed: number, isPlayer){
-        this.id = id
-        this.name = name
+    constructor(private cards: Array<Card>, private id: number, private name: string, private maxHealth: number, 
+            private speed: number, private isPlayer: boolean){
         this.currHealth = maxHealth
-        this.maxHealth = maxHealth
-        this.speed = speed
-        this.cards = cards
-        this.isPlayer = isPlayer
         this.block = 0
     }
 

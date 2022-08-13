@@ -52,20 +52,37 @@ export class GameState {
         const enemies = this.getEnemies()
         const players = this.getPlayers()
         enemies.forEach((enemy) => {
-            const chosenCard = Math.floor(Math.random() * enemy.getCardAmount())
-            // const chosenCard = 0
+            // const chosenCard = Math.floor(Math.random() * enemy.getCardAmount())
+            const chosenCard = 1
             this.addTurnAction(enemy.chooseCard(chosenCard), enemy, players[0])
         })
     }
 
     addTurnAction(choosenCard: Card, performingActor: Actor, chosenTarget: Actor) {
-        const turn = new TurnAction(choosenCard, performingActor, chosenTarget)
-        this.turnStack.unshift(turn)
+        const actions = choosenCard.getCardActions()
+        actions.forEach((action) => {
+            const turn = new TurnAction(action, performingActor, chosenTarget)
+            this.turnStack.unshift(turn)
+        })
     }
 
     endTurn() {
-        this.turnStack.forEach((turn) => turn.printAction())
-        this.turnStack.forEach((turn) => turn.performTurnAction())
+        this.turnStack.forEach((turn) => {
+            if( turn.getClassName() === "block") {
+                turn.printAction()
+                turn.performTurnAction()
+            }
+        })
+        this.turnStack.forEach((turn) => {
+            if( turn.getClassName() === "damage") {
+                turn.printAction()
+                turn.performTurnAction()
+            }
+        })
+        // blockStack.forEach((turn) => turn.printAction())
+        // blockStack.forEach((turn) => turn.performTurnAction())
+        // damageStack.forEach((turn) => turn.printAction())
+        // damageStack.forEach((turn) => turn.performTurnAction())
 
         var enemies = this.getEnemies()
         var aliveEnemies = enemies.filter((enemy) => enemy.getHealth() > 0)

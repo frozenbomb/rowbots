@@ -1,11 +1,8 @@
 import { Actor } from "./actor"
 
 export class DamageAction {
-    private damage: number
 
-    constructor(damage: number) {
-        this.damage = damage
-    }
+    constructor(private damage: number) {}
 
     performAction(targets: Array<Actor>) {
         targets.forEach((actor) => {
@@ -14,6 +11,10 @@ export class DamageAction {
             console.log(actor.getName() + " has " + actor.getHealth() + "/" + actor.getMaxHealth())
         })
     }
+
+    getText() { return "attack for " + this.damage }
+
+    getClassName() { return "damage" }
 }
 
 export class BlockAction {
@@ -30,4 +31,7 @@ export class BlockAction {
             console.log(actor.getName() + " has " + actor.getBlock() + " block")
         })
     }
+
+    getText() { return "attack for " + this.block }
+    getClassName() { return "block" }
 }

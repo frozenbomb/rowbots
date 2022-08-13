@@ -1,25 +1,21 @@
 import { Actor } from "./actor"
 import { Card } from "./card"
+import { BlockAction, DamageAction } from "./card-action"
 
 export class TurnAction {
-    private chosenCard: Card
-    private performingActor: Actor
-    private chosenTarget: Actor
 
-    constructor(chosenCard: Card, performingActor: Actor, chosenTarget: Actor) {
-        this.chosenCard = chosenCard
-        this.performingActor = performingActor
-        this.chosenTarget = chosenTarget
-    }
+    constructor(private action: DamageAction | BlockAction, private performingActor: Actor, private chosenTarget: Actor) {}
+
+    getClassName() { return this.action.getClassName() }
 
     printAction() {
         console.log(this.performingActor.getName() + 
-        " to " + this.chosenCard.getText() +
+        " to " + this.action.getText() +
         " " + this.chosenTarget.getName()
         )
     }
 
     performTurnAction() {
-        this.chosenCard.performCardActions([this.chosenTarget])
+        this.action.performAction([this.chosenTarget])
     }
 }
